@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Maitri Gift Shop</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">maitri gift shop</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html" class="active">Cart <span id="cart-count">(0)</span></a></li>
+                <li><a href="orders.html">My Orders</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-summary">
+            <h2>Cart Summary</h2>
+            <p id="total-price">Total: ₹0</p>
+            <button id="checkout-button" class="btn btn-primary">Proceed to Checkout</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Gift Shop Management System</p>
+        </div>
+    </footer>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>
