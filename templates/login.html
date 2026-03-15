@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Maitri Gift Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"><a href="{{ url_for('index') }}" style="color:white;text-decoration:none;">Maitri Gift Shop</a></div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('products') }}">Products</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart <span id="cart-count">(0)</span></a></li>
+                <li><a href="{{ url_for('orders') }}">My Orders</a></li>
+                <li><a href="{{ url_for('login') }}" class="active">Login</a></li>
+                <li id="admin-nav-item"><a href="{{ url_for('admin') }}">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="login-container">
+            <div class="login-form">
+                <h1>Customer Login &amp; Profile</h1>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required placeholder="Choose a username">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Birth Date</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login &amp; Update Profile</button>
+                    <div id="login-error" class="error-message" aria-live="assertive"></div>
+                </form>
+                <div class="login-links">
+                    <p>Don't have an account? <a href="#" id="register-link">Register here</a></p>
+                    <p><a href="#" id="forgot-password-link">Forgot password?</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Maitri Gift Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

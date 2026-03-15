@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Maitri Gift Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"><a href="{{ url_for('index') }}" style="color:white;text-decoration:none;">Maitri Gift Shop</a></div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('products') }}">Products</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart <span id="cart-count">(0)</span></a></li>
+                <li><a href="{{ url_for('orders') }}">My Orders</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li id="admin-nav-item"><a href="{{ url_for('admin') }}" class="active">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container admin-container">
+        <section id="admin-login" class="admin-panel">
+            <h1>Admin Login</h1>
+            <p>Please enter the admin password to access the dashboard.</p>
+            <div class="form-row">
+                <label for="admin-password">Password</label>
+                <input type="password" id="admin-password" placeholder="Enter admin password">
+            </div>
+            <div class="form-row" style="margin-top:12px;">
+                <button id="admin-login-button" class="btn btn-primary">Login</button>
+            </div>
+            <p class="hint">Hint: For this demo, use <strong>admin123</strong>.</p>
+            <div id="admin-login-error" class="error-message" role="alert" aria-live="assertive"></div>
+        </section>
+
+        <section id="admin-dashboard" class="admin-panel" style="display:none;">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <button id="admin-logout" class="btn btn-secondary">Logout</button>
+            </div>
+
+            <div class="dashboard-summary">
+                <div class="summary-card">
+                    <h3>Total Revenue</h3>
+                    <div class="summary-value" id="total-revenue">₹0</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Orders</h3>
+                    <div class="summary-value" id="total-orders">0</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Products</h3>
+                    <div class="summary-value" id="total-products">0</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Low Stock Items</h3>
+                    <div class="summary-value" id="low-stock-count">0</div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <button id="view-all-products" class="btn btn-primary">View All Products</button>
+                    <button id="view-all-orders" class="btn btn-primary">View All Orders</button>
+                    <button id="add-new-product" class="btn btn-secondary">Add New Product</button>
+                    <button id="export-data" class="btn btn-secondary">Export Orders</button>
+                </div>
+            </div>
+
+            <div class="admin-widgets">
+                <div class="widget" id="sales-summary">
+                    <h2>Sales Summary</h2>
+                    <div class="widget-actions">
+                        <input id="sales-search" type="text" placeholder="Search by product name">
+                        <button id="sales-search-btn" class="btn btn-secondary">Search</button>
+                        <button id="sales-reset-btn" class="btn btn-secondary">Reset</button>
+                    </div>
+                    <div class="widget-content" id="sales-summary-content"></div>
+                </div>
+
+                <div class="widget" id="stock-summary">
+                    <h2>Stock Status</h2>
+                    <div class="widget-content" id="stock-summary-content"></div>
+                </div>
+
+                <div class="widget" id="customer-orders">
+                    <h2>Customer Orders</h2>
+                    <div class="widget-actions">
+                        <input id="order-search" type="text" placeholder="Search by customer name or email">
+                        <button id="order-search-btn" class="btn btn-secondary">Search</button>
+                        <button id="order-reset-btn" class="btn btn-secondary">Reset</button>
+                    </div>
+                    <div id="orders-table-container"></div>
+                </div>
+
+                <div class="widget" id="sales-trends">
+                    <h2>Top Selling Products</h2>
+                    <div id="trends-content" class="widget-content"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Maitri Gift Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/store.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

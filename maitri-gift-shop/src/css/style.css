@@ -1,0 +1,320 @@
+:root {
+    --bg: #FAF0E6;
+    --bg-alt: #F5DEB3;
+    --primary: #8B4513;
+    --primary-dark: #654321;
+    --accent: #D2B48C;
+    --accent-dark: #BC8F8F;
+    --text: #3E2723;
+    --muted: #6D4C41;
+    --card: rgba(255, 255, 255, 0.95);
+    --shadow: rgba(0, 0, 0, 0.10);
+    --border: rgba(139, 69, 19, 0.2);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+    color: var(--text);
+}
+
+body.home {
+    background: var(--bg);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.navbar {
+    background-color: var(--primary);
+    padding: 15px 0;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.logo {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.nav-links a.active {
+    text-decoration: underline;
+}
+
+.hero {
+    background: linear-gradient(135deg, rgba(210, 180, 140, 0.95) 0%, rgba(255, 179, 151, 0.75) 100%);
+    color: white;
+    text-align: center;
+    padding: 120px 0;
+    position: relative;
+}
+
+.hero-content {
+    display: inline-block;
+    padding: 40px 30px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.hero-content h1:nth-child(2) {
+    background-color: rgba(255, 255, 255, 0.32);
+    color: var(--primary);
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    display: inline-block;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+
+.btn-secondary {
+    background-color: rgba(0, 0, 0, 0.15);
+    color: var(--text);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-accent {
+    background-color: var(--accent);
+    color: var(--text);
+    border: 1px solid transparent;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-dark);
+}
+
+.out-of-stock {
+    color: var(--accent-dark);
+    font-weight: 600;
+}
+
+.product-stock {
+    margin: 8px 0 0;
+    font-size: 0.9em;
+    color: var(--muted);
+}
+
+.btn-primary {
+    background-color: var(--accent);
+}
+
+.featured {
+    margin: 40px 0;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.categories {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.categories h2 {
+    margin-bottom: 30px;
+    color: var(--text);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.category-item {
+    background-color: var(--card);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.category-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.category-item h3 {
+    padding: 15px;
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--text);
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+}
+
+.feature {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--card);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.customer-info {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.customer-info h2 {
+    margin-bottom: 30px;
+    color: var(--text);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    background-color: var(--card);
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.info-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.info-item h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.info-item p {
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+footer {
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.testimonials {
+    background-color: var(--bg);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.testimonials h2 {
+    margin-bottom: 40px;
+    color: var(--text);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial {
+    background-color: var(--card);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-style: italic;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial p {
+    margin-bottom: 15px;
+    color: var(--muted);
+}
+
+.testimonial cite {
+    font-weight: bold;
+    color: var(--primary);
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Maitri Gift Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/orders.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"><a href="{{ url_for('index') }}" style="color:white;text-decoration:none;">Maitri Gift Shop</a></div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('products') }}">Products</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart <span id="cart-count">(0)</span></a></li>
+                <li><a href="{{ url_for('orders') }}" class="active">My Orders</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li id="admin-nav-item"><a href="{{ url_for('admin') }}">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>My Orders</h1>
+        <section id="orders-list"></section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Maitri Gift Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/store.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/orders.js') }}"></script>
+</body>
+</html>

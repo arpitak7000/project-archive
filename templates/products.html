@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Maitri Gift Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/products.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"><a href="{{ url_for('index') }}" style="color:white;text-decoration:none;">Maitri Gift Shop</a></div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('products') }}" class="active">Products</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart <span id="cart-count">(0)</span></a></li>
+                <li><a href="{{ url_for('orders') }}">My Orders</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li id="admin-nav-item"><a href="{{ url_for('admin') }}">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 style="color: rgba(111, 29, 6, 0.908);">Our Products</h1>
+            <p style="color: rgba(105, 39, 5, 0.626);">Explore our wide range of gifts for every occasion</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="products">
+            <h2>Browse Categories</h2>
+            <div class="category-grid" id="category-grid">
+                <button class="category-card" type="button">
+                    <div class="category-card__image-wrapper">
+                        <img src="https://i.pinimg.com/736x/be/b8/4a/beb84a2080676c34ec82b6787db46f82.jpg" alt="Home Décor" style="width:80px;height:80px;border-radius:12px;">
+                    </div>
+                    <div class="category-card__title">Home Décor</div>
+                </button>
+            </div>
+
+            <div class="products-content">
+                <div class="products-header">
+                    <button id="back-to-categories" class="btn btn-secondary hidden">← Back to Categories</button>
+                </div>
+                <div class="products-grid" id="products-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modal-product-image" src="" alt="Product">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modal-product-name"></h2>
+                    <p id="modal-product-description"></p>
+                    <p class="modal-product-price">Price: ₹<span id="modal-product-price"></span></p>
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" min="1" value="1">
+                    </div>
+                    <button id="modal-add-to-cart" class="btn btn-primary">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Maitri Gift Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/store.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/products.js') }}"></script>
+</body>
+</html>

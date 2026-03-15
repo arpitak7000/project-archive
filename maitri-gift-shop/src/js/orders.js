@@ -7,10 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
 
     function displayOrders() {
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        
+        const allOrders = JSON.parse(localStorage.getItem('orders')) || [];
+        const isLoggedIn = localStorage.getItem('customerLoggedIn') === 'true';
+        const customerData = JSON.parse(localStorage.getItem('customerData') || 'null');
+
+        // Filter orders by logged-in customer if applicable
+        let orders = allOrders;
+        if (isLoggedIn && customerData) {
+            orders = allOrders.filter(order =>
+                order.customer && order.customer.email === customerData.email
+            );
+        }
+
         if (orders.length === 0) {
-            ordersList.innerHTML = '<div class="no-orders"><p>No orders found. <a href="products.html">Start Shopping</a></p></div>';
+            if (isLoggedIn) {
+                ordersList.innerHTML = '<div class="no-orders"><p>No orders found. <a href="products.html">Start Shopping</a></p></div>';
+            } else {
+                ordersList.innerHTML = '<div class="no-orders"><p>Please <a href="login.html">login</a> to view your orders.</p></div>';
+            }
             return;
         }
 
@@ -34,11 +48,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const statusClass = order.status === 'On the Way' ? 'status-onway' : 'status-delivered';
 
+            const customerInfo = order.customer ? `
+                <div class="order-customer">
+                    <p><strong>Customer:</strong> ${order.customer.fullName || order.customer.name || ''}</p>
+                    <p><strong>Email:</strong> ${order.customer.email || ''}</p>
+                    <p><strong>Phone:</strong> ${order.customer.phone || ''}</p>
+                    ${order.customer.username ? `<p><strong>Username:</strong> ${order.customer.username}</p>` : ''}
+                    ${order.customer.birthdate ? `<p><strong>Birth Date:</strong> ${new Date(order.customer.birthdate).toLocaleDateString()}</p>` : ''}
+                    ${order.customer.gender ? `<p><strong>Gender:</strong> ${order.customer.gender}</p>` : ''}
+                </div>
+            ` : '';
+
             const orderDetails = `
                 <div class="order-header">
                     <div>
                         <h3>Order #${order.id}</h3>
                         <p class="order-date">${order.date}</p>
+                        ${customerInfo}
                     </div>
                     <span class="order-status ${statusClass}">${order.status}</span>
                 </div>

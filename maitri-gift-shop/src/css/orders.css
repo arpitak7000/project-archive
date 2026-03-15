@@ -1,31 +1,31 @@
 /* Orders Page Styles */
 
 h1 {
-    color: #333;
+    color: var(--text);
     margin-bottom: 30px;
 }
 
 h2 {
-    color: #333;
+    color: var(--text);
     margin: 20px 0;
 }
 
 .no-orders {
     text-align: center;
     padding: 40px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    background-color: var(--card);
+    border-radius: 18px;
+    border: 1px solid var(--border);
 }
 
 .no-orders p {
-    color: #999;
+    color: var(--muted);
     font-size: 1.1em;
     margin: 0;
 }
 
 .no-orders a {
-    color: #e91e63;
+    color: var(--accent);
     text-decoration: none;
     font-weight: bold;
 }
@@ -36,17 +36,17 @@ h2 {
 
 /* Order Card Styles */
 .order-card {
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
     margin-bottom: 20px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.3s;
 }
 
 .order-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
 }
 
 .order-header {
@@ -54,39 +54,39 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #e0e0e0;
+    background-color: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
 }
 
 .order-header h3 {
     margin: 0 0 5px 0;
-    color: #333;
+    color: var(--text);
     font-size: 1.2em;
 }
 
 .order-date {
     margin: 0;
-    color: #999;
+    color: var(--muted);
     font-size: 0.9em;
 }
 
 .order-status {
     padding: 8px 15px;
-    border-radius: 20px;
+    border-radius: 999px;
     font-weight: bold;
     font-size: 0.9em;
 }
 
 .status-onway {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffc107;
+    background-color: rgba(139, 69, 19, 0.3);
+    color: var(--text);
+    border: 1px solid rgba(139, 69, 19, 0.6);
 }
 
 .status-delivered {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #28a745;
+    background-color: rgba(210, 180, 140, 0.3);
+    color: var(--text);
+    border: 1px solid rgba(210, 180, 140, 0.6);
 }
 
 /* Order Items Container */
@@ -100,7 +100,7 @@ h2 {
     gap: 15px;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border);
     margin-bottom: 10px;
 }
 
@@ -125,26 +125,26 @@ h2 {
 .order-item-name {
     margin: 0;
     font-weight: bold;
-    color: #333;
+    color: var(--text);
     font-size: 1em;
 }
 
 .order-item-qty {
     margin: 0;
-    color: #666;
+    color: var(--muted);
     font-size: 0.9em;
 }
 
 .order-item-price {
     margin: 0;
-    color: #e91e63;
+    color: var(--accent);
     font-weight: bold;
     font-size: 0.95em;
 }
 
 .order-item-subtotal {
     margin: 0;
-    color: #e91e63;
+    color: var(--accent);
     font-weight: bold;
     font-size: 1.05em;
     text-align: right;
@@ -153,19 +153,19 @@ h2 {
 /* Order Footer */
 .order-footer {
     padding: 15px 20px;
-    background-color: #f9f9f9;
-    border-top: 1px solid #e0e0e0;
+    background-color: var(--bg-alt);
+    border-top: 1px solid var(--border);
     text-align: right;
 }
 
 .order-total {
     margin: 0;
-    color: #333;
+    color: var(--text);
     font-size: 1.1em;
 }
 
 .order-total strong {
-    color: #e91e63;
+    color: var(--accent);
     font-size: 1.2em;
 }
 

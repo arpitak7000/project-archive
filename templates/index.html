@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maitri Gift Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+</head>
+<body class="home">
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Maitri Gift Shop</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+                <li><a href="{{ url_for('products') }}">Products</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart <span id="cart-count">(0)</span></a></li>
+                <li><a href="{{ url_for('orders') }}">My Orders</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li id="admin-nav-item"><a href="{{ url_for('admin') }}">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="container" style="margin-top:16px;">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 style="color: #7b370691;">Welcome to Our Gift Shop</h1>
+            <p style="color: #6d3008;">Maitri Gift Shop</p>
+            <p style="color: #692908;">Find the perfect gifts for your loved ones</p>
+            <a href="{{ url_for('products') }}" class="btn btn-primary">Start Shopping</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="featured">
+            <h2>Featured Products</h2>
+            <div class="products-grid" id="featured-products"></div>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>📦 Fast Delivery</h3>
+                <p>Get your gifts delivered quickly and safely</p>
+            </div>
+            <div class="feature">
+                <h3>💳 Secure Payment</h3>
+                <p>Safe and secure checkout process</p>
+            </div>
+            <div class="feature">
+                <h3>🎁 Gift Wrapping</h3>
+                <p>Free gift wrapping on all orders</p>
+            </div>
+            <div class="feature">
+                <h3>📞 24/7 Support</h3>
+                <p>Customer support available anytime</p>
+            </div>
+        </section>
+
+        <section class="customer-info">
+            <h2>Customer Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>📍 Store Location</h3>
+                    <p>Maitri Gift Shop<br>123 Main Street<br>City, State 12345<br>India</p>
+                </div>
+                <div class="info-item">
+                    <h3>📞 Contact Us</h3>
+                    <p>Phone: +91 98765 43210<br>Email: info@maitrigiftshop.com<br>Hours: Mon-Sun 9AM-9PM</p>
+                </div>
+                <div class="info-item">
+                    <h3>🚚 Shipping Info</h3>
+                    <p>Free shipping on orders over ₹1000<br>Express delivery available<br>International shipping</p>
+                </div>
+                <div class="info-item">
+                    <h3>🔄 Returns &amp; Exchanges</h3>
+                    <p>30-day return policy<br>Free exchanges<br>Easy online process</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p>"Amazing selection of gifts! Found the perfect birthday present for my wife."</p>
+                    <cite>- Rajesh Kumar</cite>
+                </div>
+                <div class="testimonial">
+                    <p>"Fast delivery and excellent customer service. Highly recommended!"</p>
+                    <cite>- Priya Sharma</cite>
+                </div>
+                <div class="testimonial">
+                    <p>"Beautiful packaging and unique items. Will definitely shop again."</p>
+                    <cite>- Amit Patel</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Maitri Gift Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
