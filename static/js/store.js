@@ -1,28 +1,3 @@
-// Shared store utilities for products, stock, and sales reports.
-// Add product utility for admin
-if (!window.store) window.store = {};
-window.store.addProduct = function(product) {
-    // Add to STORE_PRODUCTS array
-    STORE_PRODUCTS.push(product);
-    // Save to localStorage
-    localStorage.setItem(STORE_PRODUCTS_KEY, JSON.stringify(STORE_PRODUCTS));
-};
-// Get all products utility for admin
-window.store.getAllProducts = function() {
-    return STORE_PRODUCTS.slice();
-};
-// Get all products utility for admin
-window.store.getAllProducts = function() {
-    return STORE_PRODUCTS.slice();
-};
-if (!window.store) window.store = {};
-window.store.addProduct = function(product) {
-    // Add to STORE_PRODUCTS array
-    STORE_PRODUCTS.push(product);
-    // Save to localStorage
-    localStorage.setItem(STORE_PRODUCTS_KEY, JSON.stringify(STORE_PRODUCTS));
-};
-
 const STORE_PRODUCTS_KEY = 'storeProducts';
 const STORE_STOCK_KEY = 'productStock';
 

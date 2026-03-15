@@ -251,12 +251,16 @@ def api_admin_stats():
 
 @app.errorhandler(404)
 def not_found(e):
+    if request.path.startswith('/api/'):
+        return jsonify({'success': False, 'error': 'Endpoint not found.'}), 404
     return render_template('index.html'), 404
 
 
 @app.errorhandler(500)
 def server_error(e):
-    return jsonify({'success': False, 'error': 'Internal server error.'}), 500
+    if request.path.startswith('/api/'):
+        return jsonify({'success': False, 'error': 'Internal server error.'}), 500
+    return render_template('index.html'), 500
 
 
 if __name__ == '__main__':
