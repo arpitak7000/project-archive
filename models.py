@@ -227,3 +227,59 @@ class OrderItem(db.Model):
 
     def __repr__(self):
         return f'<OrderItem {self.product_name} x{self.quantity}>'
+
+
+# ---------------------------------------------------------------------------
+# Table 7: bills
+# ---------------------------------------------------------------------------
+
+class Bill(db.Model):
+    __tablename__ = 'bills'
+
+    id = db.Column(db.Integer, primary_key=True)
+    bill_number = db.Column(db.String(50), unique=True, nullable=False, index=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
+    order_ref = db.Column(db.String(50), nullable=False)
+    customer_name = db.Column(db.String(255), nullable=False)
+    customer_email = db.Column(db.String(255), nullable=False)
+    customer_phone = db.Column(db.String(30), nullable=False)
+    customer_address = db.Column(db.Text, nullable=False)
+    items_json = db.Column(db.Text, nullable=False)
+    subtotal = db.Column(db.Numeric(10, 2), nullable=False)
+    gst_rate = db.Column(db.Numeric(5, 2), default=18.00, nullable=False)
+    gst_amount = db.Column(db.Numeric(10, 2), nullable=False)
+    total_amount = db.Column(db.Numeric(10, 2), nullable=False)
+    payment_method = db.Column(db.String(50), default='Cash on Delivery', nullable=False)
+    payment_status = db.Column(db.String(50), default='Pending', nullable=False)
+    issued_at = db.Column(
+        db.DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+
+    order = db.relationship('Order', backref='bill', uselist=False)
+
+    def get_items(self):
+        return json.loads(self.items_json)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'bill_number': self.bill_number,
+            'order_ref': self.order_ref,
+            'customer_name': self.customer_name,
+            'customer_email': self.customer_email,
+            'customer_phone': self.customer_phone,
+            'customer_address': self.customer_address,
+            'items': self.get_items(),
+            'subtotal': float(self.subtotal),
+            'gst_rate': float(self.gst_rate),
+            'gst_amount': float(self.gst_amount),
+            'total_amount': float(self.total_amount),
+            'payment_method': self.payment_method,
+            'payment_status': self.payment_status,
+            'issued_at': self.issued_at.strftime('%d %B %Y, %I:%M %p'),
+        }
+
+    def __repr__(self):
+        return f'<Bill {self.bill_number}>'
