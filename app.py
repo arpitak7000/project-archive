@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, jsonify
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
 from config import Config
-from models import db, Category, Product, Customer, CartItem, Order, OrderItem, Bill
+from models import db, Category, Product, Customer, CartItem, Order, OrderItem, Bill, Supplier
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -32,6 +32,99 @@ def init_db():
         print(f'[DB] Unexpected database error: {exc}')
 
 init_db()
+
+
+# ---------------------------------------------------------------------------
+# Seed initial supplier data (runs once on first start)
+# ---------------------------------------------------------------------------
+
+INITIAL_SUPPLIERS = [
+    {
+        'name': 'Sharma Sweets & Bakery Pvt. Ltd.',
+        'contact_person': 'Rajesh Sharma',
+        'phone': '+91 98201 11001',
+        'email': 'rajesh@sharmasweets.in',
+        'address': '14 Bakery Lane, Chowk Bazaar',
+        'city': 'Lucknow',
+        'gst_number': '09AABCS1429B1ZD',
+        'categories': ['Cake', 'Chocolates'],
+    },
+    {
+        'name': 'Green Thumb Nursery & Florals',
+        'contact_person': 'Anita Menon',
+        'phone': '+91 94430 22002',
+        'email': 'anita@greenthumb.co.in',
+        'address': '7 Garden View Road, Koramangala',
+        'city': 'Bangalore',
+        'gst_number': '29AADCG8723F1ZQ',
+        'categories': ['Plants', 'Flowers'],
+    },
+    {
+        'name': 'Craftwise Gifting Solutions',
+        'contact_person': 'Priya Verma',
+        'phone': '+91 93010 33003',
+        'email': 'priya@craftwise.in',
+        'address': '22 Industrial Estate, Sector 18',
+        'city': 'Noida',
+        'gst_number': '09AAHCM2348K1ZR',
+        'categories': ['Personalized Gifts', 'Greeting Cards', 'Mugs'],
+    },
+    {
+        'name': 'Fashionista Accessories Hub',
+        'contact_person': 'Amit Kapoor',
+        'phone': '+91 99990 44004',
+        'email': 'amit@fashionistahub.com',
+        'address': '55 Jewellers Market, Karol Bagh',
+        'city': 'New Delhi',
+        'gst_number': '07AAFCF3901N1ZK',
+        'categories': ['Jewelry', 'Accessories'],
+    },
+    {
+        'name': 'Home Harmony Décor Co.',
+        'contact_person': 'Sunita Joshi',
+        'phone': '+91 88880 55005',
+        'email': 'sunita@homeharmony.in',
+        'address': '9 Furniture Street, FC Road',
+        'city': 'Pune',
+        'gst_number': '27AABCH4512D1ZP',
+        'categories': ['Home Décor'],
+    },
+    {
+        'name': 'Soft Toys World Enterprises',
+        'contact_person': 'Vikram Nair',
+        'phone': '+91 77770 66006',
+        'email': 'vikram@softtoysworld.in',
+        'address': '33 Toy Market, Fancy Bazaar',
+        'city': 'Guwahati',
+        'gst_number': '18AABCV5623H1ZF',
+        'categories': ['Soft Toys', 'Festival Gifts'],
+    },
+]
+
+
+def seed_suppliers():
+    try:
+        with app.app_context():
+            if Supplier.query.count() == 0:
+                for s in INITIAL_SUPPLIERS:
+                    supplier = Supplier(
+                        name=s['name'],
+                        contact_person=s['contact_person'],
+                        phone=s['phone'],
+                        email=s['email'],
+                        address=s['address'],
+                        city=s['city'],
+                        gst_number=s['gst_number'],
+                        categories_supplied=json.dumps(s['categories']),
+                    )
+                    db.session.add(supplier)
+                db.session.commit()
+                print(f'[DB] Seeded {len(INITIAL_SUPPLIERS)} suppliers.')
+    except SQLAlchemyError as exc:
+        print(f'[DB] Supplier seed error: {exc}')
+
+
+seed_suppliers()
 
 
 # ---------------------------------------------------------------------------

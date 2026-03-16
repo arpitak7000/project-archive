@@ -283,3 +283,49 @@ class Bill(db.Model):
 
     def __repr__(self):
         return f'<Bill {self.bill_number}>'
+
+
+# ---------------------------------------------------------------------------
+# Table 8: suppliers
+# ---------------------------------------------------------------------------
+
+class Supplier(db.Model):
+    __tablename__ = 'suppliers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    contact_person = db.Column(db.String(255), nullable=False)
+    phone = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.Text, nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    gst_number = db.Column(db.String(30), nullable=True)
+    categories_supplied = db.Column(db.Text, nullable=False, default='[]')
+    created_at = db.Column(
+        db.DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+
+    def get_categories(self):
+        import json
+        try:
+            return json.loads(self.categories_supplied)
+        except Exception:
+            return []
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'contact_person': self.contact_person,
+            'phone': self.phone,
+            'email': self.email,
+            'address': self.address,
+            'city': self.city,
+            'gst_number': self.gst_number or '—',
+            'categories_supplied': self.get_categories(),
+        }
+
+    def __repr__(self):
+        return f'<Supplier {self.name}>'
