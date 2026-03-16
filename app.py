@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, jsonify
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
 from config import Config
-from models import db, Customer, Order
+from models import db, Category, Product, Customer, CartItem, Order, OrderItem
 
 app = Flask(__name__)
 app.config.from_object(Config)
