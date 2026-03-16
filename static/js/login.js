@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const loginError = document.getElementById('login-error');
     const registerLink = document.getElementById('register-link');
-    const forgotPasswordLink = document.getElementById('forgot-password-link');
 
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
@@ -85,10 +84,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (forgotPasswordLink) {
-        forgotPasswordLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('You can use any password to log in.');
-        });
-    }
 });
