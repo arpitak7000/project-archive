@@ -197,6 +197,11 @@ function openBillModal(order, customerData) {
             </div>
         </div>
 
+        <div class="bill-payment-method">
+            <strong>Payment Method:</strong>
+            <span class="bill-payment-badge">${order.payment_method || 'Cash on Delivery'}</span>
+        </div>
+
         <div class="bill-footer-note">
             Thank you for shopping with Maitri Gift Shop! 🎁<br>
             This is a computer-generated bill and does not require a signature.
@@ -237,6 +242,8 @@ function printBill() {
                 .bill-totals-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; }
                 .bill-net-total { font-weight: bold; font-size: 15px; border-top: 2px solid #7b2d00; margin-top: 6px; padding-top: 8px; color: #7b2d00; }
                 .bill-footer-note { text-align: center; margin-top: 24px; font-size: 12px; color: #777; border-top: 1px dashed #ccc; padding-top: 14px; }
+                .bill-payment-method { margin-top: 16px; padding: 8px 12px; background: #fdf6f0; border: 1px solid #e8d5c4; border-radius: 6px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+                .bill-payment-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; background: #7b2d00; color: white; font-size: 12px; font-weight: bold; }
             </style>
         </head>
         <body>${billContent}</body>

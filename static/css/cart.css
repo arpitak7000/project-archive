@@ -345,6 +345,66 @@ body {
     font-size: 1em;
 }
 
+/* ── Payment Method Selector ─────────────────────────────── */
+
+.payment-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.payment-option {
+    flex: 1;
+    min-width: 90px;
+    cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 10px;
+    border: 2px solid #d8d8d8;
+    border-radius: 10px;
+    background: #fafafa;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-align: center;
+}
+
+.payment-option input[type="radio"]:checked + .payment-card {
+    border-color: #7b2d00;
+    background: #fdf6f0;
+    box-shadow: 0 0 0 3px rgba(123, 45, 0, 0.12);
+}
+
+.payment-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.payment-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+}
+
+.payment-option input[type="radio"]:checked + .payment-card .payment-label {
+    color: #7b2d00;
+}
+
+.card-row-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
 @keyframes scaleIn {
     from { transform: scale(0); opacity: 0; }
     to { transform: scale(1); opacity: 1; }

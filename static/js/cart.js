@@ -133,6 +133,7 @@ async function saveOrder(cartItems, customer) {
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const gstAmount = Math.round(subtotal * 0.18);
     const total = subtotal + gstAmount;
+    const paymentMethod = customer.payment_method || 'Cash on Delivery';
 
     // Save to backend
     try {
@@ -144,13 +145,15 @@ async function saveOrder(cartItems, customer) {
                 items: cartItems,
                 subtotal,
                 gst: gstAmount,
-                total
+                total,
+                payment_method: paymentMethod
             })
         });
         const data = await response.json();
 
         if (data.success && data.order) {
-            // Also save to localStorage for orders.js to display
+            // Attach payment method and save to localStorage for orders.js to display
+            data.order.payment_method = paymentMethod;
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             orders.unshift(data.order);
             localStorage.setItem('orders', JSON.stringify(orders));
@@ -162,8 +165,10 @@ async function saveOrder(cartItems, customer) {
         const orderDate = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
         orders.unshift({
             id: orderId, date: orderDate, items: cartItems, total,
+            subtotal, gst: gstAmount,
             status: 'On the Way', timestamp: Date.now(),
-            customer: { name: customer.name, email: customer.email, phone: customer.phone, address: customer.address }
+            payment_method: paymentMethod,
+            customer: { name: customer.name, fullName: customer.name, email: customer.email, phone: customer.phone, address: customer.address }
         });
         localStorage.setItem('orders', JSON.stringify(orders));
     }
@@ -196,13 +201,29 @@ function hideCheckoutModal() {
     modal.classList.remove('show');
 }
 
+function getSelectedPaymentMethod() {
+    const selected = document.querySelector('input[name="payment-method"]:checked');
+    return selected ? selected.value : 'Cash on Delivery';
+}
+
 function getCheckoutFormData() {
-    return {
+    const method = getSelectedPaymentMethod();
+    const data = {
         name: document.getElementById('customer-name')?.value.trim(),
         email: document.getElementById('customer-email')?.value.trim(),
         phone: document.getElementById('customer-phone')?.value.trim(),
-        address: document.getElementById('customer-address')?.value.trim()
+        address: document.getElementById('customer-address')?.value.trim(),
+        payment_method: method,
     };
+    if (method === 'UPI') {
+        data.upi_id = document.getElementById('upi-id')?.value.trim();
+    }
+    if (method === 'Card') {
+        data.card_number = document.getElementById('card-number')?.value.trim();
+        data.card_expiry = document.getElementById('card-expiry')?.value.trim();
+        data.card_cvv = document.getElementById('card-cvv')?.value.trim();
+    }
+    return data;
 }
 
 function validateCheckoutData(data) {
@@ -215,6 +236,23 @@ function validateCheckoutData(data) {
     if (!/^\+?[\d\s\-]{7,15}$/.test(data.phone)) {
         return 'Please enter a valid phone number.';
     }
+    if (data.payment_method === 'UPI') {
+        if (!data.upi_id || !data.upi_id.includes('@')) {
+            return 'Please enter a valid UPI ID (e.g. name@upi).';
+        }
+    }
+    if (data.payment_method === 'Card') {
+        const cardNum = (data.card_number || '').replace(/\s/g, '');
+        if (!cardNum || cardNum.length < 12) {
+            return 'Please enter a valid card number.';
+        }
+        if (!data.card_expiry || !/^\d{2}\/\d{2}$/.test(data.card_expiry)) {
+            return 'Please enter card expiry in MM/YY format.';
+        }
+        if (!data.card_cvv || data.card_cvv.length < 3) {
+            return 'Please enter a valid CVV.';
+        }
+    }
     return null;
 }
 
@@ -225,6 +263,35 @@ function showCheckoutSuccess() {
 document.addEventListener('DOMContentLoaded', () => {
     loadCart();
     updateCartCount();
+
+    // Format card number with spaces
+    const cardNumberInput = document.getElementById('card-number');
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+            e.target.value = val.replace(/(.{4})/g, '$1 ').trim();
+        });
+    }
+
+    // Format card expiry MM/YY
+    const cardExpiryInput = document.getElementById('card-expiry');
+    if (cardExpiryInput) {
+        cardExpiryInput.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (val.length >= 3) val = val.substring(0, 2) + '/' + val.substring(2);
+            e.target.value = val;
+        });
+    }
+
+    // Show/hide UPI or Card fields based on payment method selection
+    document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const upiField   = document.getElementById('upi-field');
+            const cardFields = document.getElementById('card-fields');
+            if (upiField)   upiField.style.display   = radio.value === 'UPI'  ? 'block' : 'none';
+            if (cardFields) cardFields.style.display  = radio.value === 'Card' ? 'block' : 'none';
+        });
+    });
 });
 
 const checkoutButton = document.getElementById('checkout-button');

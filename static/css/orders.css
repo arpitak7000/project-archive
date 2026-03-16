@@ -297,6 +297,30 @@ h2 {
     color: #7b2d00;
 }
 
+/* Payment Method */
+.bill-payment-method {
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: #fdf6f0;
+    border: 1px solid #e8d5c4;
+    border-radius: 8px;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bill-payment-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #7b2d00;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
 /* Footer note */
 .bill-footer-note {
     text-align: center;
