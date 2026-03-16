@@ -42,11 +42,6 @@
     </header>
 
     <main class="container">
-        <section class="featured">
-            <h2>Featured Products</h2>
-            <div class="products-grid" id="featured-products"></div>
-        </section>
-
         <section class="features">
             <div class="feature">
                 <h3>📦 Fast Delivery</h3>
@@ -115,34 +110,6 @@
         </div>
     </footer>
 
-    <script src="{{ url_for('static', filename='js/store.js') }}"></script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.getElementById('featured-products');
-            if (!grid || !window.store) return;
-            const all = window.store.getAllProducts();
-            // Pick up to 4 products from different categories as featured items
-            const seen = new Set();
-            const featured = [];
-            for (const p of all) {
-                if (!seen.has(p.category) && featured.length < 4) {
-                    seen.add(p.category);
-                    featured.push(p);
-                }
-            }
-            grid.innerHTML = featured.map(p => `
-                <div class="product-card">
-                    <img src="${p.image}" alt="${p.name}" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">${p.name}</h3>
-                        <p>${p.description}</p>
-                        <p class="product-price">₹${p.price}</p>
-                        <a href="/products" class="btn btn-primary" style="display:inline-block;margin-top:8px;">Shop Now</a>
-                    </div>
-                </div>
-            `).join('');
-        });
-    </script>
 </body>
 </html>
